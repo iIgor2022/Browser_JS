@@ -1,37 +1,27 @@
 const slide = Array.from(document.getElementsByClassName('slider__item'));
 const dots = Array.from(document.getElementsByClassName('slider__dot'));
 
+function manageSlider(index) {
+    dots.forEach(element => element.classList.remove('slider__dot_active'));
+    slide.forEach(element => element.classList.remove('slider__item_active'));
+    dots[index].classList.add('slider__dot_active');        
+    slide[index].classList.add('slider__item_active');
+};
+
+manageSlider(0);
+
 document.getElementsByClassName('slider__arrow_prev')[0].onclick = () => {
     const index = slide.findIndex(element => element.classList.contains('slider__item_active'));
-    slide.forEach(element => element.classList.remove('slider__item_active'));
-    dots.forEach(element => element.classList.remove('slider__dot_active'));
-    if (index === 0) {
-        slide[slide.length - 1].classList.add('slider__item_active');
-        dots[slide.length - 1].classList.add('slider__dot_active');
-    } else {
-        slide[index - 1].classList.add('slider__item_active');
-        dots[index - 1].classList.add('slider__dot_active');
-    };
+    index === 0 ? manageSlider(slide.length - 1):manageSlider(index - 1);
 };
 
 document.getElementsByClassName('slider__arrow_next')[0].onclick = () => {
     const index = slide.findIndex(element => element.classList.contains('slider__item_active'));
-    slide.forEach(element => element.classList.remove('slider__item_active'));
-    dots.forEach(element => element.classList.remove('slider__dot_active'));
-    if (index === slide.length - 1) {
-        slide[0].classList.add('slider__item_active');
-        dots[0].classList.add('slider__dot_active');
-    } else {
-        slide[index + 1].classList.add('slider__item_active');
-        dots[index + 1].classList.add('slider__dot_active');
-    };
+    index === slide.length - 1 ? manageSlider(0):manageSlider(index + 1);
 };
 
 dots.forEach((item, index) => {
     item.onclick = () => {
-        dots.forEach(element => element.classList.remove('slider__dot_active'));
-        item.classList.add('slider__dot_active');
-        slide.forEach(element => element.classList.remove('slider__item_active'));
-        slide[index].classList.add('slider__item_active');
+        manageSlider(index);
     }
 });
