@@ -3,6 +3,12 @@ const miss = document.getElementById('lost');
 
 getHole = index => document.getElementById(`hole${index}`);
 
+function setDefault(text) {
+    alert(text);
+    dead.textContent = 0;
+    miss.textContent = 0;
+};
+
 for (let i = 1; i < 10; i++) {
     const hole = getHole(i);    
     hole.onclick = () => {
@@ -12,14 +18,10 @@ for (let i = 1; i < 10; i++) {
             miss.textContent = Number(miss.textContent) + 1;
         };
         if (dead.textContent === '10') {
-            alert('Победа!');
-            dead.textContent = 0;
-            miss.textContent = 0;
+            setDefault('Победа!');
         };
         if (miss.textContent === '5') {
-            alert('Вы проиграли!');
-            dead.textContent = 0;
-            miss.textContent = 0;
+            setDefault('Вы проиграли!');
         };
     };
 };
