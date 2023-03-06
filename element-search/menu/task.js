@@ -6,17 +6,32 @@ links_array.forEach(element => {
         if (menu.classList.contains('menu_sub')) {
             menu.classList.remove('menu_active');
         } else {
-            Array.from(menu.children).forEach(element => {
+            let f = -1;
+            Array.from(menu.children).forEach((element, index) => {
                 const item = element.querySelector('.menu_active')
                 if (item != null) {
-                    item.classList.remove('menu_active');
+                    f = index;
                 };
             });
+            if (f === -1) {
+                const el = element.closest('.menu__item');
+                if (el.querySelector('.menu') != null) { 
+                    el.querySelector('.menu').classList.add('menu_active');
+                };
+            } else {
+                if (this.parentNode.querySelector('.menu_active')) {
+                    this.parentNode.querySelector('.menu_active').classList.remove('menu_active');
+                } else {
+                    Array.from(menu.children).forEach(element => {
+                        if (element.querySelector('.menu')) {
+                            element.querySelector('.menu').classList.remove('menu_active');
+                        };
+                    });
+                    this.parentNode.querySelector('.menu').classList.add('menu_active');
+                }
+            }
         };
         const el = element.closest('.menu__item');
-        if (el.querySelector('.menu') != null) { 
-            el.querySelector('.menu').classList.add('menu_active');
-        };
         if (el.querySelector('.menu_sub') != null) {
             return false;
         };
