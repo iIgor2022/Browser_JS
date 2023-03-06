@@ -11,7 +11,7 @@ for (let i = 0; i < close_btn.length; i++) {
 };
 
 
-const btn = document.getElementsById('show-success');
+const btn = document.getElementsByClassName('show-success');
 
 btn[0].onclick = () => {
     document.getElementById('modal_success').classList.add('modal_active');
