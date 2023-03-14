@@ -81,12 +81,18 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
-      }
-    ];
+      const regexp = new RegExp(text, "i");
+      let values = [];
+
+      Array.from(this.input.options).forEach(element => {
+        if (element.text.match(regexp)) {
+          values.push({
+            text: element.text,
+            value: element.value
+          });
+        };
+      });
+      return values;
   }
 }
 
