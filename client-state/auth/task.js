@@ -16,14 +16,12 @@ function showWelcome(user_id) {
 };
 
 xhr.addEventListener('load', function() {
-    if (this.status === 201) {
-        const response = this.response;
-        if (response['success']) {
-            localStorage.setItem('auth', JSON.stringify({'user_id': response['user_id']}));
-            showWelcome(response['user_id']);
-        } else {
-            alert('Неверный логин/пароль!');
-        };
+    const response = this.response;
+    if (response['success']) {
+        localStorage.setItem('auth', JSON.stringify({'user_id': response['user_id']}));
+        showWelcome(response['user_id']);
+    } else {
+        alert('Неверный логин/пароль!');
     };
 });
 
