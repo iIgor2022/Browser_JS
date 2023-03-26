@@ -42,13 +42,14 @@ function addTask(taskText) {
     } else {
         localStorage.setItem('tasks', JSON.stringify([taskText]));
         elementCreate(taskText);
-    }
+    };
 };
 
 document.forms.tasks__form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (tasksInput.value != '') {
         addTask(tasksInput.value);
+        tasksInput.value = '';
     };
 });
 
