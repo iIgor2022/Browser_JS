@@ -1,6 +1,7 @@
 const xhr = new XMLHttpRequest();
+const authFrom = document.querySelector('form');
 
-document.querySelector('form').addEventListener('submit', function(event) {
+authFrom.addEventListener('submit', function(event) {
     event.preventDefault();
     const formData = new FormData(document.forms.signin__form);
 
@@ -17,17 +18,16 @@ function showWelcome(user_id) {
 
 xhr.addEventListener('load', function() {
     const response = this.response;
-    if (response['success']) {
-        localStorage.setItem('auth', JSON.stringify({'user_id': response['user_id']}));
-        showWelcome(response['user_id']);
+    if (response.success) {
+        localStorage.setItem('auth', JSON.stringify({'user_id': response.user_id}));
+        showWelcome(response.user_id);
     } else {
         alert('Неверный логин/пароль!');
     };
 });
 
 xhr.addEventListener('loadstart', () => {
-    document.querySelector('input[name=login]').value = '';
-    document.querySelector('input[name=password]').value = '';
+    authFrom.reset();
 });
 
 document.getElementById('logout__btn').addEventListener('click', () => {
@@ -40,7 +40,7 @@ document.getElementById('logout__btn').addEventListener('click', () => {
 window.onload = () => {
     if (localStorage.getItem('auth')) {
         try {
-            showWelcome(JSON.parse(localStorage.getItem('auth'))['user_id']);
+            showWelcome(JSON.parse(localStorage.getItem('auth')).user_id);
         } catch (error) {
             return false;    
         };
